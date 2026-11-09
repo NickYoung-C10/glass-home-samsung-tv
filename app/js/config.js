@@ -50,7 +50,7 @@
     pollEveryMs: 20000,
     longPressMs: 700,
     // Date and time format, e.g. 'en-AU', 'en-GB', 'en-US'. Empty: the TV's own.
-    locale: '',
+    locale: 'en-US',
 
     // How YouTube shortcuts are handed to the YouTube app. 'uri' sends
     // https://www.youtube.com/watch?v=...; 'payload' is Samsung's Smart Hub
@@ -64,12 +64,12 @@
     // Off until you set your location. Find coordinates with
     // https://geocoding-api.open-meteo.com/v1/search?name=YOUR+TOWN
     weather: {
-      enabled: false,
-      place: '',                 // label under the forecast, e.g. 'Springfield'
-      latitude: 0,
-      longitude: 0,
-      timezone: 'auto',          // or an IANA name such as 'Europe/London'
-      temperatureUnit: 'celsius',   // or 'fahrenheit'
+      enabled: true,
+      place: 'Caledonia',        // label under the forecast
+      latitude: 42.7892,
+      longitude: -85.51669,
+      timezone: 'America/Detroit',
+      temperatureUnit: 'fahrenheit',
       refreshMs: 30 * 60 * 1000
     },
 
@@ -91,16 +91,16 @@
     // apps (YouTube reports its Cobalt engine's pinwheel, Prime Video's may not
     // load, Samsung TV Plus is a system app), so those default to name tiles.
     apps: [
+      { key: 'plex', label: 'Plex', ids: ['kIciSQlYEM.plex'],
+        names: ['^plex$', '\bplex\b'] },
+      { key: 'netflix', label: 'Netflix', storeId: ['3201907018807', '11101200001'], ids: ['org.tizen.netflix-app', 'RN1MCdNq8t.Netflix'],
+        names: ['^netflix$', '\bnetflix\b'] },
       { key: 'youtube', label: 'YouTube', storeId: '111299001912', ids: ['9Ur5IzDKqV.TizenYouTube', 'com.samsung.tv.cobalt-yt'],
         names: ['^youtube$'], icon: false },
-      { key: 'netflix', label: 'Netflix', storeId: ['3201907018807', '11101200001'], ids: ['org.tizen.netflix-app', 'RN1MCdNq8t.Netflix'],
-        names: ['^netflix$', '\\bnetflix\\b'] },
       { key: 'prime', label: 'Prime Video', storeId: ['3201910019365', '3201512006785'], ids: ['org.tizen.primevideo', 'org.tizen.ignition', 'evKhCgZelL.AmazonIgnitionLauncher2'],
-        names: ['^prime video$', '^amazon prime video$', '\\bprime video\\b'], icon: false },
-      { key: 'tvplus', label: 'Samsung TV Plus', ids: ['com.samsung.tv.tvPlusDeeplinker', 'com.samsung.tv.tvplus'],
-        names: ['^samsung tv plus$', '^tv plus$', 'samsung tv plus'], icon: false },
+        names: ['^prime video$', '^amazon prime video$', '\bprime video\b'], icon: false },
       { key: 'disney', label: 'Disney+', storeId: '3201901017640', ids: ['MCmYXNxgcu.DisneyPlus'],
-        names: ['^disney plus$', '\\bdisney plus\\b', '^disney$'] },
+        names: ['^disney plus$', '\bdisney plus\b', '^disney$'] },
       { key: 'browser', label: 'Internet', ids: ['org.tizen.browser'],
         names: ['^internet$', '^browser$'] }
     ],
