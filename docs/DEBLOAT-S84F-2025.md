@@ -31,13 +31,25 @@ So the two levers that *do* work are the settings below and DNS filtering.
 | Stop personalised ads | Same screen — untick **Interest-Based Advertisements** | Tick it again |
 | Reset the advertising ID | Same screen > **Reset PSID** > Reset | By design, not undoable (nothing depends on the old ID) |
 | Stop promotional pop-ups | **Settings > Notification** (just above All Settings) > gear icon > untick **Samsung Promotion** | Tick it again |
-| Don't open Smart Hub at power-on | **(moved)** On One UI this is under **General & Privacy > Advanced Features > Start Screen Options**, not directly under General & Privacy. Set **Start with Smart Hub Home** off | Switch it on |
+| Don't open Smart Hub at power-on | **Settings > All Settings > Advanced Features > Start Screen Option**. On 2025 models Advanced Features is a top-level item under Settings, *not* inside General & Privacy as it was on Tizen 8. Set **Start with Smart Hub Home** off | Switch it on |
 | Voice / Bixby telemetry **(unverified)** | **General & Privacy > Voice** — turn off **Voice Recognition Services** | Turn back on |
 | Mute Home-screen previews | Home > For You > scroll to the bottom > Media Options > **Autoplay Sound** | Press OK again |
 | Tidy the Home row | Highlight a tile, hold **OK** > **Remove** (the app stays installed) | Apps > App Settings > the app > Add to Home |
 
+### If "Autorun Last App" isn't in that menu
+
+Several 2025 owners report the option missing from Start Screen Option
+entirely, and some TVs still power on into Samsung TV Plus even with the
+autorun toggles off. If that's the case here, look in the same menu for
+**TV Plus Autorun Start** and turn it off; that is Samsung's own
+moderators' workaround. Without Autorun Last App there is no supported way
+to have the TV open Glass Home at power-on, which is the one thing Glass
+Home relies on a TV setting for.
+
 **Do not touch, they are adjacent to the above:**
-- **Factory data reset** sits just below Start Screen Options.
+- **Factory data reset** sat just below Start Screen Options on Tizen 8.
+  Its position in the 2025 Advanced Features menu is unverified, so read
+  before pressing either way.
 - In App Settings, **Delete** uninstalls an app — use Home-row *Remove* instead.
 - **Reset Smart Hub** (Support > Device Care) signs you out of everything.
 
