@@ -540,6 +540,11 @@ html.lite #wx-week {
   transform: none;
   transition: opacity 0.18s ease, transform 0.24s var(--ease), visibility 0s;
 }
+#menu.picker {
+  min-width: 520px;
+  max-height: 560px;
+  overflow-y: auto;
+}
 .menu-title {
   padding: 10px 24px 12px;
   font-size: 21px;

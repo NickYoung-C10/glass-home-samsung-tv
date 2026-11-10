@@ -48,8 +48,21 @@
   // Resolves { key: { id, name, iconPath } } for the dock apps that are installed.
   P.resolveApps = function (defs) {
     if (!tz) {
+      // Match on ids first, as the TV branch below does, so a def that names an
+      // exact id (the dock's app picker) resolves in preview too.
       var mock = (window.GH_MOCK && window.GH_MOCK.apps) || [];
-      return Promise.resolve(matchByName(defs, mock, {}));
+      var seeded = {};
+      defs.forEach(function (def) {
+        for (var i = 0; i < def.ids.length && !seeded[def.key]; i++) {
+          for (var j = 0; j < mock.length; j++) {
+            if (mock[j] && mock[j].id === def.ids[i]) {
+              seeded[def.key] = { id: mock[j].id, name: mock[j].name, iconPath: mock[j].iconPath || null };
+              break;
+            }
+          }
+        }
+      });
+      return Promise.resolve(matchByName(defs, mock, seeded));
     }
     var result = {};
     defs.forEach(function (def) {
@@ -80,6 +93,23 @@
         clearTimeout(timer);
         resolve(result);
       }
+    });
+  };
+
+  // Every installed app the TV will show, for the dock's app picker.
+  P.listApps = function () {
+    function tidy(list) {
+      return (list || []).filter(function (a) { return a && a.id && a.show !== false; })
+        .map(function (a) { return { id: a.id, name: a.name, iconPath: a.iconPath || null }; });
+    }
+    if (!tz) return Promise.resolve(tidy((window.GH_MOCK && window.GH_MOCK.apps) || []));
+    return new Promise(function (resolve) {
+      var done = false;
+      var timer = setTimeout(function () { if (!done) { done = true; resolve([]); } }, 4000);
+      function finish(v) { if (done) return; done = true; clearTimeout(timer); resolve(v); }
+      try {
+        tz.application.getAppsInfo(function (list) { finish(tidy(list)); }, function () { finish([]); });
+      } catch (e) { finish([]); }
     });
   };
 
