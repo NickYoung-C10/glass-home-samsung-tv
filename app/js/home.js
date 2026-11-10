@@ -191,7 +191,7 @@
       list.push({ kind: 'app', key: 'app:' + k, appKey: k, label: defByKey[k].label, id: a.id,
         storeId: defByKey[k].storeId,
         icon: defByKey[k].icon === false ? null
-          : (defByKey[k].icon || withEpoch(P.appIconUrl(defByKey[k].storeId, a.iconPath))) });
+          : (defByKey[k].icon || withEpoch(P.appIconUrl(defByKey[k].storeId, a.iconPath, a.id))) });
     });
     orderedInputs().forEach(function (inp) {
       var k = inputKey(inp);
@@ -569,7 +569,24 @@
       pickFocus = 0;
       menu.textContent = '';
       menu.appendChild(div('menu-title', 'Add an app to the dock'));
-      pickItems.forEach(function (a) { a.el = div('menu-item', a.name); menu.appendChild(a.el); });
+      pickItems.forEach(function (a) {
+        var rowEl = div('menu-item');
+        var url = P.appIconUrl(null, a.iconPath, a.id);
+        if (url) {
+          var img = new Image();
+          img.className = 'pick-icon';
+          img.alt = '';
+          // Keep the slot so the names stay in a column when an icon won't load.
+          img.onerror = function () { img.style.visibility = 'hidden'; };
+          img.src = url;
+          rowEl.appendChild(img);
+        } else {
+          rowEl.appendChild(div('pick-icon'));
+        }
+        rowEl.appendChild(div('pick-name', a.name));
+        a.el = rowEl;
+        menu.appendChild(rowEl);
+      });
       menu.classList.add('picker');
       renderPickFocus();
       var w = menu.offsetWidth || 520;
